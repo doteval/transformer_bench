@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Transformer Operation Benchmarking Script for Multiple GPUs and DTypes
 
@@ -18,7 +16,6 @@ Available dtypes:
 - Float32 (fp32)
 - BFloat16 (bf16)
 - Int8 (int8)
-- Float8 (fp8) - H100 only
 """
 
 import os
@@ -51,22 +48,22 @@ GPU_CONFIGS = {
     "h100": {
         "memory": 80e9,  # 80GB HBM3
         "name": "H100",
-        "supported_dtypes": ["fp16", "fp32", "bf16", "int8", "fp8"]
+        "supported_dtypes": ["fp16", "fp32", "bf16", "int8"]
     }
 }
+
 DTYPE_MAP = {
     "fp16": torch.float16,
     "fp32": torch.float32,
     "bf16": torch.bfloat16,
-    "int8": torch.int8,
-    "fp8": torch.float8_e4m3fn if hasattr(torch, 'float8_e4m3fn') else None
+    "int8": torch.int8
 }
+
 DTYPE_SIZES = {
     "fp16": 2,  # 2 bytes
     "fp32": 4,  # 4 bytes
     "bf16": 2,  # 2 bytes
-    "int8": 1,  # 1 byte
-    "fp8": 1    # 1 byte
+    "int8": 1   # 1 byte
 }
 
 # Benchmark configurations
